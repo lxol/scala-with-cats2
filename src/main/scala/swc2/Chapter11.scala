@@ -33,9 +33,6 @@ final case class GCounter[A](counters: Map[String, A]) {
       that: GCounter[A]
   )(implicit B: BoundedSemiLattice[A]): GCounter[A] = {
     GCounter(this.counters |+| that.counters)
-    // GCounter[A](counters ++ that.counters.map {
-    //   case (k, v) => (k, B.combine(v, that.counters.getOrElse(k, B.empty)))
-    // })
   }
 
   def totalm(implicit C: CommutativeMonoid[A]): A =
