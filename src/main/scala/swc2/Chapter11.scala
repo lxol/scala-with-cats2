@@ -9,15 +9,17 @@ trait BoundedSemiLattice[A] extends CommutativeMonoid[A] {
 }
 
 object BoundedSemiLattice {
-  implicit val intBoundedSemiLattice = new BoundedSemiLattice[Int] {
+
+  implicit val intBoundedsemilattice = new BoundedSemiLattice[Int] {
     def combine(a1: Int, a2: Int): Int = a1 max a2
     def empty: Int = 0
   }
 
-  implicit def setsBoundedSemiLattice[A]() = new BoundedSemiLattice[Set[A]] {
-    def combine(s1: Set[A], s2: Set[A]): Set[A] = s1 combine s2
-    def empty: Set[A] = Set[A]()
-  }
+  implicit def setsBoundedSemiLattice[A](): BoundedSemiLattice[Set[A]] =
+    new BoundedSemiLattice[Set[A]] {
+      def combine(s1: Set[A], s2: Set[A]): Set[A] = s1 combine s2
+      def empty: Set[A] = Set[A]()
+    }
 }
 
 final case class GCounter[A](counters: Map[String, A]) {
