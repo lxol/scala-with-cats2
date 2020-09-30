@@ -1,6 +1,5 @@
 package swc2.chapter11.ex11_3_2
 
-
 final case class GCounter(counters: Map[String, Int]) {
 
   /**
@@ -25,3 +24,8 @@ final case class GCounter(counters: Map[String, Int]) {
   def total(): Int = counters.values.sum
 }
 //
+import cats.kernel.CommutativeMonoid
+trait BoundedSemiLattice[A] extends CommutativeMonoid[A] {
+  def combine(a1: A, a2: A): A
+  def empty: A
+}
